@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  font-family: "Roboto Mono", monospace;
+  /* background-color: #212121; */
+}
+
+.container h1 {
+  font-weight: 900;
+}
+
+.container {
+  background-color: #fff;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  border-radius: 12px;
+  padding: 12px 28px;
+  width: 400px;
+}
+
+.input-box {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.input-box input {
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  outline: none;
+  font-size: 16px;
+}
+.input-box button {
+  padding: 8px 12px;
+  background-color: #212121;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Todo styling */
+.todos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.todos button {
+  padding: 8px 12px;
+  background-color: #212121;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.todos input[type="checkbox"] {
+  accent-color: #212121;
+}
+
+.todo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
