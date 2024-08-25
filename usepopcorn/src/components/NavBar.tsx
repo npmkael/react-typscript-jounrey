@@ -1,14 +1,19 @@
 import React from "react";
 import { useState } from "react";
+import { tempMovieDataType } from "../tempMovieModel";
 
 interface Props {}
 
-const NavBar = () => {
+type tempMovieDataProps = {
+  movie: tempMovieDataType[];
+};
+
+const NavBar = ({ movie }: tempMovieDataProps) => {
   return (
     <nav className="nav-bar">
       <Logo />
       <SearchInputField />
-      <NumResults />
+      <NumResults movie={movie} />
     </nav>
   );
 };
@@ -35,10 +40,10 @@ function SearchInputField() {
   );
 }
 
-function NumResults() {
+function NumResults({ movie }: tempMovieDataProps) {
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movie.length}</strong> results
     </p>
   );
 }

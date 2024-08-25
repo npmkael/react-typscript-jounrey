@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NavBar from "./components/NavBar";
 import MovieBox from "./components/MovieBox";
+import { tempMovieDataType } from "./tempMovieModel";
 
 const tempMovieData = [
   {
@@ -50,9 +51,10 @@ const tempWatchedData = [
 ];
 
 function App() {
+  const [movies, setMovies] = useState<tempMovieDataType[]>(tempMovieData);
   return (
     <>
-      <NavBar />
+      <NavBar movie={movies} />
       <MovieBox
         tempMovieData={tempMovieData}
         tempWatchedData={tempWatchedData}

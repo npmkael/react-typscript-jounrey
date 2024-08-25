@@ -44,11 +44,9 @@ function ListBox({ movieData }: MovieDataProps) {
 }
 
 function MovieList({ movieData }: MovieDataProps) {
-  const [movies, setMovies] = useState<tempMovieDataType[]>(movieData);
-
   return (
     <ul className="list">
-      {movies?.map((movie) => (
+      {movieData?.map((movie) => (
         <Movie movie={movie} key={movie.imdbID} />
       ))}
     </ul>
