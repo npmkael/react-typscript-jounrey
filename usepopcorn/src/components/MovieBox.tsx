@@ -138,7 +138,7 @@ function WatchedList({ watchedData }: WatchBoxProps) {
   return (
     <ul className="list">
       {watchedData.map((movie) => (
-        <Watched movie={movie} />
+        <Watched movie={movie} key={movie.imdbID} />
       ))}
     </ul>
   );
@@ -150,7 +150,7 @@ type WatchedMovie = {
 
 function Watched({ movie }: WatchedMovie) {
   return (
-    <li key={movie.imdbID}>
+    <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
