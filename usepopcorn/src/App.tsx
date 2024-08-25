@@ -56,6 +56,8 @@ const tempWatchedData = [
 
 function App() {
   const [movies, setMovies] = useState<tempMovieDataType[]>(tempMovieData);
+  const [watched, setWatched] =
+    useState<tempWatchedDataType[]>(tempWatchedData);
   return (
     <>
       <NavBar>
@@ -64,10 +66,14 @@ function App() {
         <NumResults movie={movies} />
       </NavBar>
       <MovieBox>
-        <ListBox>
+        <Box>
           <MovieList movieData={movies} />
-        </ListBox>
-        <WatchBox watchedData={tempWatchedData} />
+        </Box>
+
+        <Box>
+          <WatchSummary watchedData={watched} />
+          <WatchedList watchedData={watched} />
+        </Box>
       </MovieBox>
     </>
   );
@@ -85,19 +91,15 @@ interface Props {
   children: React.ReactNode;
 }
 
-function ListBox({ children }: Props) {
-  // console.log(movieData);
+function Box({ children }: Props) {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  const [isOpen1, setIsOpen1] = useState<boolean>(true);
   return (
     <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen1((open) => !open)}
-      >
-        {isOpen1 ? "–" : "+"}
+      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
+        {isOpen ? "–" : "+"}
       </button>
-      {isOpen1 && children}
+      {isOpen && children}
     </div>
   );
 }
@@ -135,27 +137,26 @@ interface WatchedMovieProps {
   watchedData: tempWatchedDataType[];
 }
 
-function WatchBox({ watchedData }: WatchedMovieProps) {
-  const [watched, setWatched] = useState<tempWatchedDataType[]>(watchedData);
-  const [isOpen2, setIsOpen2] = useState<boolean>(true);
+// function WatchBox({ watchedData }: WatchedMovieProps) {
+//   const [isOpen2, setIsOpen2] = useState<boolean>(true);
 
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && (
-        <>
-          <WatchSummary watchedData={watched} />
-          <WatchedList watchedData={watched} />
-        </>
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div className="box">
+//       <button
+//         className="btn-toggle"
+//         onClick={() => setIsOpen2((open) => !open)}
+//       >
+//         {isOpen2 ? "–" : "+"}
+//       </button>
+//       {isOpen2 && (
+//         <>
+//           <WatchSummary watchedData={watched} />
+//           <WatchedList watchedData={watched} />
+//         </>
+//       )}
+//     </div>
+//   );
+// }
 
 function WatchSummary({ watchedData }: WatchedMovieProps) {
   const avgImdbRating: number = average(
