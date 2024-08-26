@@ -24,6 +24,7 @@ type SetRating = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 const StarRating = ({ maxRating = 5 }: { maxRating?: number }) => {
   const [rating, setRating] = useState<SetRating>(0);
+  const [tempRating, setTempRating] = useState<number>(0);
 
   function handleRating(rating: number): void {
     if (rating >= 1 && rating <= 10) {
@@ -38,11 +39,13 @@ const StarRating = ({ maxRating = 5 }: { maxRating?: number }) => {
           <Star
             key={i}
             onClick={() => handleRating(i + 1)}
-            isFull={rating >= i + 1}
+            isFull={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(0)}
           />
         ))}
       </div>
-      <p style={textStyle}>{rating || ""}</p>
+      <p style={textStyle}>{tempRating || rating || ""}</p>
     </div>
   );
 };
@@ -50,9 +53,11 @@ const StarRating = ({ maxRating = 5 }: { maxRating?: number }) => {
 type StarProps = {
   onClick: () => void;
   isFull: boolean;
+  onHoverIn: () => void;
+  onHoverOut: () => void;
 };
 
-function Star({ onClick, isFull }: StarProps) {
+function Star({ onClick, isFull, onHoverIn, onHoverOut }: StarProps) {
   return (
     <span
       style={{
@@ -62,6 +67,8 @@ function Star({ onClick, isFull }: StarProps) {
         display: "block",
       }}
       onClick={onClick}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
     >
       {isFull ? (
         <svg
