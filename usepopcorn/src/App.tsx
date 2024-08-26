@@ -137,27 +137,6 @@ interface WatchedMovieProps {
   watchedData: tempWatchedDataType[];
 }
 
-// function WatchBox({ watchedData }: WatchedMovieProps) {
-//   const [isOpen2, setIsOpen2] = useState<boolean>(true);
-
-//   return (
-//     <div className="box">
-//       <button
-//         className="btn-toggle"
-//         onClick={() => setIsOpen2((open) => !open)}
-//       >
-//         {isOpen2 ? "–" : "+"}
-//       </button>
-//       {isOpen2 && (
-//         <>
-//           <WatchSummary watchedData={watched} />
-//           <WatchedList watchedData={watched} />
-//         </>
-//       )}
-//     </div>
-//   );
-// }
-
 function WatchSummary({ watchedData }: WatchedMovieProps) {
   const avgImdbRating: number = average(
     watchedData.map((movie) => movie.imdbRating)
