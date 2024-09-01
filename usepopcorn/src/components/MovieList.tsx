@@ -2,12 +2,12 @@ import React from "react";
 import { tempMovieDataType, tempWatchedDataType } from "../models";
 import Movie from "./Movie";
 
-interface MovieDataProps {
+interface Props {
     movieData: tempMovieDataType[] | tempWatchedDataType[];
     onSelectMovie: (id: string) => void;
 }
 
-function MovieList({ movieData, onSelectMovie }: MovieDataProps) {
+function MovieList({ movieData, onSelectMovie }: Props) {
     return (
         <ul className="list list-movies">
             {movieData?.map((movie) => (

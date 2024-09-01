@@ -103,7 +103,6 @@ function App() {
             <NavBar query={query} setQuery={setQuery} movie={movies} />
             <MovieBox>
                 <Box>
-                    {/* {isLoading ? <Loader /> : <MovieList movieData={movies} />} */}
                     {isLoading && <Loader />}
                     {!isLoading && !error && (
                         <MovieList
@@ -119,6 +118,7 @@ function App() {
                         <SelectedMovie
                             selectedId={selectedId}
                             onCloseMovie={handleCloseMovie}
+                            apikey={KEY}
                         />
                     ) : (
                         <>
