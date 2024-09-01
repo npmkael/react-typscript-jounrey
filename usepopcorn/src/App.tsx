@@ -54,14 +54,37 @@ const KEY = "fa23eaa3";
 function App() {
     const [movies, setMovies] = useState<tempMovieDataType[]>([]);
     const [watched, setWatched] = useState<tempWatchedDataType[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+    const query = "intderstellar";
 
     // useEffect for data fetching
     useEffect(function () {
-        fetch(
-            `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=interstellar`
-        )
-            .then((res) => res.json())
-            .then((data) => setMovies(data.Search));
+        async function fetchMovies() {
+            try {
+                setIsLoading(true);
+                const res = await fetch(
+                    `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+                );
+
+                if (!res.ok)
+                    throw new Error(
+                        "Something went wrong with fetching movies"
+                    );
+
+                const data = await res.json();
+                if (data.Response === "False")
+                    throw new Error("Movie not found");
+
+                setMovies(data.Search);
+            } catch (err: any) {
+                console.error(err.message);
+                setError(err.message);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchMovies();
     }, []);
 
     return (
@@ -73,7 +96,10 @@ function App() {
             </NavBar>
             <MovieBox>
                 <Box>
-                    <MovieList movieData={movies} />
+                    {/* {isLoading ? <Loader /> : <MovieList movieData={movies} />} */}
+                    {isLoading && <Loader />}
+                    {!isLoading && !error && <MovieList movieData={movies} />}
+                    {error && <ErrorMessage message={error} />}
                 </Box>
 
                 <Box>
@@ -82,6 +108,23 @@ function App() {
                 </Box>
             </MovieBox>
         </>
+    );
+}
+
+function Loader() {
+    return <p className="loader">Loading...</p>;
+}
+
+interface ErrorMessageProps {
+    message: string;
+}
+
+function ErrorMessage({ message }: ErrorMessageProps) {
+    return (
+        <p className="error">
+            <span>🚫</span>
+            {message}
+        </p>
     );
 }
 
