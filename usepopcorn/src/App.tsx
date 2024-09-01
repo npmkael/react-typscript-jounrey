@@ -8,6 +8,7 @@ import ErrorMessage from "./components/ErrorMessage";
 import WatchSummary from "./components/WatchSummary";
 import WatchedList from "./components/WatchedList";
 import MovieList from "./components/MovieList";
+import SelectedMovie from "./components/SelectedMovie";
 
 const KEY = "fa23eaa3";
 
@@ -15,12 +16,25 @@ function average(arr: number[]): number {
     return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 }
 
+// TODO
+// Review
+// Push
+
 function App() {
     const [query, setQuery] = useState<string>("");
     const [movies, setMovies] = useState<tempMovieDataType[]>([]);
     const [watched, setWatched] = useState<tempWatchedDataType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
+    const [selectedId, setSelectedId] = useState<string>("");
+
+    function handleSelectMovie(id: string): void {
+        setSelectedId((selectedId) => (id === selectedId ? "" : id));
+    }
+
+    function handleCloseMovie(): void {
+        setSelectedId("");
+    }
 
     /*
     // will only render 1 time
@@ -91,13 +105,30 @@ function App() {
                 <Box>
                     {/* {isLoading ? <Loader /> : <MovieList movieData={movies} />} */}
                     {isLoading && <Loader />}
-                    {!isLoading && !error && <MovieList movieData={movies} />}
+                    {!isLoading && !error && (
+                        <MovieList
+                            movieData={movies}
+                            onSelectMovie={handleSelectMovie}
+                        />
+                    )}
                     {error && <ErrorMessage message={error} />}
                 </Box>
 
                 <Box>
-                    <WatchSummary watchedData={watched} average={average} />
-                    <WatchedList watchedData={watched} />
+                    {selectedId ? (
+                        <SelectedMovie
+                            selectedId={selectedId}
+                            onCloseMovie={handleCloseMovie}
+                        />
+                    ) : (
+                        <>
+                            <WatchSummary
+                                watchedData={watched}
+                                average={average}
+                            />
+                            <WatchedList watchedData={watched} />
+                        </>
+                    )}
                 </Box>
             </MovieBox>
         </>

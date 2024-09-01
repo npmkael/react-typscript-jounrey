@@ -4,13 +4,18 @@ import Movie from "./Movie";
 
 interface MovieDataProps {
     movieData: tempMovieDataType[] | tempWatchedDataType[];
+    onSelectMovie: (id: string) => void;
 }
 
-function MovieList({ movieData }: MovieDataProps) {
+function MovieList({ movieData, onSelectMovie }: MovieDataProps) {
     return (
-        <ul className="list">
+        <ul className="list list-movies">
             {movieData?.map((movie) => (
-                <Movie movie={movie} key={movie.imdbID} />
+                <Movie
+                    movie={movie}
+                    key={movie.imdbID}
+                    onSelectMovie={onSelectMovie}
+                />
             ))}
         </ul>
     );
