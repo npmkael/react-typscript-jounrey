@@ -44,29 +44,6 @@ function App() {
         setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
     }
 
-    /*
-    // will only render 1 time
-    useEffect(function () {
-        console.log("After initial render");
-    }, []);
-
-    // this renders after every render since we didn't pass any dependency array
-    useEffect(function () {
-        console.log("After render");
-    });
-
-    useEffect(
-        function () {
-            console.log("D");
-        },
-        [query]
-    );
-    */
-
-    // this render after the component re-renders
-    // console.log("During render");
-
-    // useEffect for data fetching
     useEffect(
         function () {
             async function fetchMovies() {

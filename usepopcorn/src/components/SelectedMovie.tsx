@@ -64,6 +64,15 @@ const SelectedMovie = ({
         [selectedId]
     );
 
+    useEffect(
+        function () {
+            console.log(movie);
+            if (!movie) return;
+            document.title = `Movie | ${movie?.Title}`;
+        },
+        [movie?.Title]
+    );
+
     if (!movie) return;
 
     const {
