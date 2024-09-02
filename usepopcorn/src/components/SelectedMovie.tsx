@@ -1,20 +1,37 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { MovieDetails } from "../models";
+import { MovieDetails, tempMovieDataType } from "../models";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
+import { tempWatchedDataType } from "../models";
 
 interface Props {
     selectedId: string;
     onCloseMovie: () => void;
     apikey: string;
+    onAddWatched: (movie: tempWatchedDataType) => void;
+    watched: tempWatchedDataType[];
 }
 
-const SelectedMovie = ({ selectedId, onCloseMovie, apikey }: Props) => {
+const SelectedMovie = ({
+    selectedId,
+    onCloseMovie,
+    apikey,
+    onAddWatched,
+    watched,
+}: Props) => {
     const [movie, setMovie] = useState<MovieDetails | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
+    const [userRating, setUserRating] = useState<number>(0);
+
+    const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+    const watchUserRating = watched.find(
+        (movie) => movie?.imdbID === selectedId
+    )?.userRating;
+
+    console.log(isWatched);
 
     useEffect(
         function () {
@@ -62,7 +79,18 @@ const SelectedMovie = ({ selectedId, onCloseMovie, apikey }: Props) => {
         Genre: genre,
     } = movie;
 
-    console.log(title, year, poster);
+    function handleAdd() {
+        const newMovie = {
+            imdbID: selectedId,
+            title,
+            year,
+            poster,
+            imdbRating: Number(imdbRating),
+            runtime: Number(runtime.split(" ").at(0)),
+            userRating,
+        };
+        onAddWatched(newMovie);
+    }
 
     return (
         <div className="details">
@@ -82,14 +110,36 @@ const SelectedMovie = ({ selectedId, onCloseMovie, apikey }: Props) => {
                             <p>{genre}</p>
                             <p>
                                 <span>⭐</span>
-                                {imdbRating}
+                                {imdbRating} IMDb Rating
                             </p>
                         </div>
                     </header>
 
                     <section>
                         <div className="rating">
-                            <StarRating size={26} maxRating={10} />
+                            {!isWatched ? (
+                                <>
+                                    <StarRating
+                                        size={26}
+                                        maxRating={10}
+                                        onSetRating={setUserRating}
+                                    />
+
+                                    {userRating > 0 && (
+                                        <button
+                                            className="btn-add"
+                                            onClick={handleAdd}
+                                        >
+                                            Add to list
+                                        </button>
+                                    )}
+                                </>
+                            ) : (
+                                <p>
+                                    You already rated this movie{" "}
+                                    {watchUserRating}⭐
+                                </p>
+                            )}
                         </div>
                         <p>
                             <em>{plot}</em>

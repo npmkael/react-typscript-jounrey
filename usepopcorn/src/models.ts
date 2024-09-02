@@ -10,9 +10,9 @@ export type tempWatchedDataType = {
     imdbRating: number;
     userRating: number;
     imdbID: string;
-    Title: string;
-    Year: string;
-    Poster: string;
+    title: string;
+    year: string;
+    poster: string;
 };
 
 type Ratings = {

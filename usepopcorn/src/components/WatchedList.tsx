@@ -3,13 +3,18 @@ import { tempWatchedDataType } from "../models";
 
 interface Props {
     watchedData: tempWatchedDataType[];
+    onDeleteWatched: (id: string) => void;
 }
 
-function WatchedList({ watchedData }: Props) {
+function WatchedList({ watchedData, onDeleteWatched }: Props) {
     return (
         <ul className="list">
             {watchedData.map((movie) => (
-                <Watched movie={movie} key={movie.imdbID} />
+                <Watched
+                    movie={movie}
+                    key={movie.imdbID}
+                    onDeleteWatched={onDeleteWatched}
+                />
             ))}
         </ul>
     );
@@ -17,13 +22,15 @@ function WatchedList({ watchedData }: Props) {
 
 type WatchedMovie = {
     movie: tempWatchedDataType;
+    onDeleteWatched: (id: string) => void;
 };
 
-function Watched({ movie }: WatchedMovie) {
+function Watched({ movie, onDeleteWatched }: WatchedMovie) {
+    console.log(movie);
     return (
         <li>
-            <img src={movie.Poster} alt={`${movie.Title} poster`} />
-            <h3>{movie.Title}</h3>
+            <img src={movie.poster} alt={`${movie.title} poster`} />
+            <h3>{movie.title}</h3>
             <div>
                 <p>
                     <span>⭐️</span>
@@ -37,6 +44,13 @@ function Watched({ movie }: WatchedMovie) {
                     <span>⏳</span>
                     <span>{movie.runtime} min</span>
                 </p>
+
+                <button
+                    className="btn-delete"
+                    onClick={() => onDeleteWatched(movie.imdbID)}
+                >
+                    X
+                </button>
             </div>
         </li>
     );

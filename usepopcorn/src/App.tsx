@@ -17,8 +17,7 @@ function average(arr: number[]): number {
 }
 
 // TODO
-// Review
-// Push
+// Review and push
 
 function App() {
     const [query, setQuery] = useState<string>("");
@@ -34,6 +33,15 @@ function App() {
 
     function handleCloseMovie(): void {
         setSelectedId("");
+    }
+
+    function handleAddWatched(movie: tempWatchedDataType): void {
+        setWatched((watched) => [...watched, movie]);
+        handleCloseMovie();
+    }
+
+    function handleDeleteWatched(id: string): void {
+        setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
     }
 
     /*
@@ -119,6 +127,8 @@ function App() {
                             selectedId={selectedId}
                             onCloseMovie={handleCloseMovie}
                             apikey={KEY}
+                            onAddWatched={handleAddWatched}
+                            watched={watched}
                         />
                     ) : (
                         <>
@@ -126,7 +136,10 @@ function App() {
                                 watchedData={watched}
                                 average={average}
                             />
-                            <WatchedList watchedData={watched} />
+                            <WatchedList
+                                watchedData={watched}
+                                onDeleteWatched={handleDeleteWatched}
+                            />
                         </>
                     )}
                 </Box>

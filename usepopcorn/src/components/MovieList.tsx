@@ -3,7 +3,7 @@ import { tempMovieDataType, tempWatchedDataType } from "../models";
 import Movie from "./Movie";
 
 interface Props {
-    movieData: tempMovieDataType[] | tempWatchedDataType[];
+    movieData: tempMovieDataType[];
     onSelectMovie: (id: string) => void;
 }
 
