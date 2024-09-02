@@ -26,7 +26,6 @@ type WatchedMovie = {
 };
 
 function Watched({ movie, onDeleteWatched }: WatchedMovie) {
-    console.log(movie);
     return (
         <li>
             <img src={movie.poster} alt={`${movie.title} poster`} />

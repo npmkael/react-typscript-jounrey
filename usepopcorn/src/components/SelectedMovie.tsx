@@ -31,8 +31,6 @@ const SelectedMovie = ({
         (movie) => movie?.imdbID === selectedId
     )?.userRating;
 
-    console.log(isWatched);
-
     useEffect(
         function () {
             async function getMovieDetails() {
@@ -66,9 +64,12 @@ const SelectedMovie = ({
 
     useEffect(
         function () {
-            console.log(movie);
             if (!movie) return;
             document.title = `Movie | ${movie?.Title}`;
+
+            return function () {
+                document.title = "usePopcorn";
+            };
         },
         [movie?.Title]
     );
