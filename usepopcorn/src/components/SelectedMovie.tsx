@@ -88,7 +88,7 @@ const SelectedMovie = ({
         };
     }, []);
 
-    if (!movie) return;
+    if (isLoading || !movie) return <Loader />;
 
     const {
         Title: title,
@@ -114,6 +114,7 @@ const SelectedMovie = ({
             userRating,
         };
         onAddWatched(newMovie);
+        onCloseMovie();
     }
 
     return (
@@ -138,7 +139,6 @@ const SelectedMovie = ({
                             </p>
                         </div>
                     </header>
-
                     <section>
                         <div className="rating">
                             {!isWatched ? (

@@ -17,15 +17,25 @@ function average(arr: number[]): number {
 }
 
 // TODO
-// Review and push
+// Review all the new code, before proceeding to lesson 164
+// Review all handling nulls and undefined
 
 function App() {
     const [query, setQuery] = useState<string>("");
     const [movies, setMovies] = useState<tempMovieDataType[]>([]);
-    const [watched, setWatched] = useState<tempWatchedDataType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [selectedId, setSelectedId] = useState<string>("");
+
+    // const [watched, setWatched] = useState<tempWatchedDataType[]>([]);
+    const [watched, setWatched] = useState<tempWatchedDataType[] | null>(
+        function (): tempWatchedDataType[] | null {
+            const storedValue = localStorage.getItem("watch");
+            return typeof storedValue === "undefined" || storedValue === null
+                ? null
+                : (JSON.parse(storedValue) as tempWatchedDataType[]);
+        }
+    );
 
     function handleSelectMovie(id: string): void {
         setSelectedId((selectedId) => (id === selectedId ? "" : id));
@@ -36,13 +46,21 @@ function App() {
     }
 
     function handleAddWatched(movie: tempWatchedDataType): void {
-        setWatched((watched) => [...watched, movie]);
-        handleCloseMovie();
+        setWatched((watched) => (watched ? [...watched, movie] : []));
     }
 
     function handleDeleteWatched(id: string): void {
-        setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+        setWatched((watched) =>
+            watched ? watched.filter((movie) => movie.imdbID !== id) : []
+        );
     }
+
+    useEffect(
+        function () {
+            localStorage.setItem("watch", JSON.stringify(watched));
+        },
+        [watched]
+    );
 
     useEffect(
         function () {
@@ -114,16 +132,16 @@ function App() {
                             onCloseMovie={handleCloseMovie}
                             apikey={KEY}
                             onAddWatched={handleAddWatched}
-                            watched={watched}
+                            watched={watched ? watched : []}
                         />
                     ) : (
                         <>
                             <WatchSummary
-                                watchedData={watched}
+                                watchedData={watched ? watched : []}
                                 average={average}
                             />
                             <WatchedList
-                                watchedData={watched}
+                                watchedData={watched ? watched : []}
                                 onDeleteWatched={handleDeleteWatched}
                             />
                         </>
