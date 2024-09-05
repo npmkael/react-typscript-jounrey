@@ -12,10 +12,6 @@ import SelectedMovie from "./components/SelectedMovie";
 
 const KEY = "fa23eaa3";
 
-function average(arr: number[]): number {
-    return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-}
-
 // TODO
 // Review all the new code, before proceeding to lesson 164
 // Review all handling nulls and undefined
@@ -53,6 +49,10 @@ function App() {
         setWatched((watched) =>
             watched ? watched.filter((movie) => movie.imdbID !== id) : []
         );
+    }
+
+    function average(arr: number[]): number {
+        return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
     }
 
     useEffect(
