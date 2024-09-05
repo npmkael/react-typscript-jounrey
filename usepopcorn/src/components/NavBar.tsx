@@ -15,6 +15,7 @@ const NavBar = ({ query, setQuery, movie }: Props) => {
             if (inputEl.current) {
                 inputEl.current.focus();
             }
+
             function callback(e: KeyboardEvent) {
                 // if (document.activeElement === inputEl.current) return
                 if (e.code === "Enter") {

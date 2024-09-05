@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MovieDetails, tempMovieDataType } from "../models";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
@@ -25,6 +25,15 @@ const SelectedMovie = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [userRating, setUserRating] = useState<number>(0);
+
+    const countRef = useRef<number>(0);
+
+    useEffect(
+        function () {
+            if (userRating) countRef.current++;
+        },
+        [userRating]
+    );
 
     const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
     const watchUserRating = watched.find(
@@ -112,6 +121,7 @@ const SelectedMovie = ({
             imdbRating: Number(imdbRating),
             runtime: Number(runtime.split(" ").at(0)),
             userRating,
+            countRatingDecisions: countRef.current,
         };
         onAddWatched(newMovie);
         onCloseMovie();

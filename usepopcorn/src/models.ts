@@ -13,6 +13,7 @@ export type tempWatchedDataType = {
     title: string;
     year: string;
     poster: string;
+    countRatingDecisions: number;
 };
 
 type Ratings = {
