@@ -9,19 +9,15 @@ import WatchSummary from "./components/WatchSummary";
 import WatchedList from "./components/WatchedList";
 import MovieList from "./components/MovieList";
 import SelectedMovie from "./components/SelectedMovie";
+import { useMovies } from "./useMovies";
 
 const KEY = "fa23eaa3";
 
-// TODO
-// Review all the new code, before proceeding to lesson 164
-// Review all handling nulls and undefined
-
 function App() {
     const [query, setQuery] = useState<string>("");
-    const [movies, setMovies] = useState<tempMovieDataType[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>("");
     const [selectedId, setSelectedId] = useState<string>("");
+
+    const { movies, isLoading, error } = useMovies(query);
 
     // const [watched, setWatched] = useState<tempWatchedDataType[]>([]);
     const [watched, setWatched] = useState<tempWatchedDataType[] | null>(
@@ -62,53 +58,53 @@ function App() {
         [watched]
     );
 
-    useEffect(
-        function () {
-            const controller = new AbortController();
-            async function fetchMovies() {
-                try {
-                    setIsLoading(true);
-                    setError("");
-                    const res = await fetch(
-                        `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`,
-                        { signal: controller.signal }
-                    );
+    // useEffect(
+    //     function () {
+    //         const controller = new AbortController();
+    //         async function fetchMovies() {
+    //             try {
+    //                 setIsLoading(true);
+    //                 setError("");
+    //                 const res = await fetch(
+    //                     `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`,
+    //                     { signal: controller.signal }
+    //                 );
 
-                    if (!res.ok)
-                        throw new Error(
-                            "Something went wrong with fetching movies"
-                        );
+    //                 if (!res.ok)
+    //                     throw new Error(
+    //                         "Something went wrong with fetching movies"
+    //                     );
 
-                    const data = await res.json();
-                    if (data.Response === "False")
-                        throw new Error("Movie not found");
+    //                 const data = await res.json();
+    //                 if (data.Response === "False")
+    //                     throw new Error("Movie not found");
 
-                    setMovies(data.Search);
-                    setError("");
-                } catch (err: any) {
-                    if (err.name !== "AbortError") {
-                        setError(err.message);
-                    }
-                } finally {
-                    setIsLoading(false);
-                }
-            }
+    //                 setMovies(data.Search);
+    //                 setError("");
+    //             } catch (err: any) {
+    //                 if (err.name !== "AbortError") {
+    //                     setError(err.message);
+    //                 }
+    //             } finally {
+    //                 setIsLoading(false);
+    //             }
+    //         }
 
-            if (!query.length) {
-                setMovies([]);
-                setError("");
-                return;
-            }
+    //         if (!query.length) {
+    //             setMovies([]);
+    //             setError("");
+    //             return;
+    //         }
 
-            handleCloseMovie();
-            fetchMovies();
+    //         handleCloseMovie();
+    //         fetchMovies();
 
-            return function () {
-                controller.abort();
-            };
-        },
-        [query]
-    );
+    //         return function () {
+    //             controller.abort();
+    //         };
+    //     },
+    //     [query]
+    // );
 
     return (
         <>
