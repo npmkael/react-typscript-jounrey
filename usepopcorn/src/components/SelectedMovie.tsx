@@ -5,6 +5,7 @@ import StarRating from "./StarRating";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import { tempWatchedDataType } from "../models";
+import { useKey } from "../useKey";
 
 interface Props {
     selectedId: string;
@@ -83,19 +84,7 @@ const SelectedMovie = ({
         [movie?.Title]
     );
 
-    useEffect(function () {
-        function callback(e: KeyboardEvent): void {
-            if (e.code === "Escape") {
-                onCloseMovie();
-            }
-        }
-
-        document.addEventListener("keydown", callback);
-
-        return function () {
-            document.removeEventListener("keydown", callback);
-        };
-    }, []);
+    useKey("escape", onCloseMovie);
 
     if (isLoading || !movie) return <Loader />;
 
