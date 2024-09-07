@@ -5,9 +5,15 @@ interface Props {
   todos: TodosType[];
   onToggleTodo: (id: number) => void;
   onDeleteTodo: (id: number) => void;
+  onEditTodo: (id: number, updated: string) => void;
 }
 
-export default function TodoBox({ todos, onToggleTodo, onDeleteTodo }: Props) {
+export default function TodoBox({
+  todos,
+  onToggleTodo,
+  onDeleteTodo,
+  onEditTodo,
+}: Props) {
   return (
     <div className="todos">
       {todos.map((todo) => (
@@ -16,6 +22,7 @@ export default function TodoBox({ todos, onToggleTodo, onDeleteTodo }: Props) {
           key={todo.id}
           onToggleTodo={onToggleTodo}
           onDeleteTodo={onDeleteTodo}
+          onEditTodo={onEditTodo}
         />
       ))}
     </div>
