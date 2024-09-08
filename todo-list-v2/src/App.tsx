@@ -100,6 +100,7 @@ function App() {
             <div className="main-todo-wrapper">
                 <div>
                     <p>title</p>
+                    <p>description</p>
                 </div>
             </div>
         </>
