@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BsPlus } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
 
 const initialTodos = [
     {
@@ -34,9 +35,37 @@ function App() {
     const [todo, setTodos] = useState<TodoType[]>(initialTodos);
     const [active, setIsAcive] = useState<number>(0);
     const [toggleTask, setToggleTask] = useState<boolean>(false);
+    const [isTodoOpen, setIsTodoOpen] = useState<boolean>(false);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [id, setId] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
 
     function handleAddTodo(newTodo: TodoType): void {
         setTodos((todo) => [...todo, newTodo]);
+    }
+
+    function handleShowTodo(
+        title: string,
+        description: string,
+        id: string
+    ): void {
+        setTitle(title);
+        setDescription(description);
+        setId(id);
+        setIsTodoOpen((todo) => !todo);
+    }
+
+    function handleSetEditing() {
+        setIsEditing((edit) => !edit);
+    }
+
+    function handleEditTodo(id: string, title: string, description: string) {
+        setTodos((todos) =>
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, title, description } : todo
+            )
+        );
     }
 
     return (
@@ -72,7 +101,11 @@ function App() {
                     {active === 1 ? (
                         <>
                             {todo.map((todo) => (
-                                <Todo todo={todo} key={todo.id} />
+                                <Todo
+                                    todo={todo}
+                                    key={todo.id}
+                                    onHandleShowTodo={handleShowTodo}
+                                />
                             ))}
                             <div className="add-btn-container">
                                 <Button
@@ -97,12 +130,20 @@ function App() {
                 </div>
             </div>
 
-            <div className="main-todo-wrapper">
-                <div>
-                    <p>title</p>
-                    <p>description</p>
-                </div>
-            </div>
+            {isTodoOpen ? (
+                <ShowTodo
+                    title={title}
+                    description={description}
+                    onHandleEditing={handleSetEditing}
+                    isEditing={isEditing}
+                    onHandleEditTodo={handleEditTodo}
+                    onSetTitle={setTitle}
+                    onSetDescription={setDescription}
+                    id={id}
+                />
+            ) : (
+                ""
+            )}
         </>
     );
 }
@@ -128,12 +169,18 @@ function Button({ className, children, onClick }: ButtonProps) {
 
 type TodoProps = {
     todo: TodoType;
+    onHandleShowTodo: (title: string, description: string, id: string) => void;
 };
 
-function Todo({ todo }: TodoProps) {
+function Todo({ todo, onHandleShowTodo }: TodoProps) {
     return (
         <>
-            <div className="todo-wrapper">
+            <div
+                className="todo-wrapper"
+                onClick={() =>
+                    onHandleShowTodo(todo.title, todo.description, todo.id)
+                }
+            >
                 <input type="checkbox" />
                 <div className="todo-info">
                     <p className="title">{todo.title}</p>
@@ -212,6 +259,65 @@ function CreateTaskModal({
                 </button>
             </div>
         </form>
+    );
+}
+
+type ShowTodoProps = {
+    title: string;
+    description: string;
+    onHandleEditing: () => void;
+    isEditing: boolean;
+    onHandleEditTodo: (id: string, title: string, description: string) => void;
+    onSetTitle: React.Dispatch<React.SetStateAction<string>>;
+    onSetDescription: React.Dispatch<React.SetStateAction<string>>;
+    id: string;
+};
+
+function ShowTodo({
+    title,
+    description,
+    onHandleEditing,
+    isEditing,
+    onHandleEditTodo,
+    onSetTitle,
+    onSetDescription,
+    id,
+}: ShowTodoProps) {
+    return (
+        <div className="main-todo-wrapper">
+            <div>
+                {isEditing ? (
+                    <input
+                        type="text"
+                        value={title}
+                        className="edit-title"
+                        onChange={(e) => onSetTitle(e.target.value)}
+                    />
+                ) : (
+                    <p className="title">{title}</p>
+                )}
+                <p>{description}</p>
+            </div>
+            <div className="edit-wrapper">
+                {!isEditing ? (
+                    <button onClick={() => onHandleEditing()}>
+                        <MdEdit color="black" size={20} />
+                    </button>
+                ) : (
+                    <div className="confirm-buttons">
+                        <button
+                            onClick={() => {
+                                onHandleEditTodo(id, title, description);
+                                onHandleEditing();
+                            }}
+                        >
+                            Ok
+                        </button>
+                        <button>Cancel</button>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }
 

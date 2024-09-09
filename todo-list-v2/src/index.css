@@ -242,3 +242,50 @@ body {
 }
 
 /* main wrapper todo */
+.main-todo-wrapper {
+    background-color: #f1f1f1;
+    padding: 14px;
+    position: relative;
+}
+
+.main-todo-wrapper div .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.edit-wrapper {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+}
+.edit-wrapper button {
+    border: none;
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    cursor: pointer;
+    filter: drop-shadow(2px 3px 0 #212121);
+}
+.edit-wrapper button:hover {
+    transform: translateY(-5px);
+}
+.edit-wrapper button:active {
+    transform: translateY(0);
+}
+
+.main-todo-wrapper .edit-title {
+    /* background-color: transparent; */
+    font-family: "Roboto Mono", monospace;
+    width: 100%;
+    border-radius: 8px;
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.1));
+    outline: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
