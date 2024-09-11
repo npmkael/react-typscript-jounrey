@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 
@@ -39,7 +39,7 @@ function App() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [id, setId] = useState("");
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     function handleAddTodo(newTodo: TodoType): void {
         setTodos((todo) => [...todo, newTodo]);
@@ -54,10 +54,6 @@ function App() {
         setDescription(description);
         setId(id);
         setIsTodoOpen((todo) => !todo);
-    }
-
-    function handleSetEditing() {
-        setIsEditing((edit) => !edit);
     }
 
     function handleEditTodo(id: string, title: string, description: string) {
@@ -134,11 +130,11 @@ function App() {
                 <ShowTodo
                     title={title}
                     description={description}
-                    onHandleEditing={handleSetEditing}
-                    isEditing={isEditing}
                     onHandleEditTodo={handleEditTodo}
                     onSetTitle={setTitle}
                     onSetDescription={setDescription}
+                    isEditing={isEditing}
+                    onSetEditing={setIsEditing}
                     id={id}
                 />
             ) : (
@@ -265,42 +261,66 @@ function CreateTaskModal({
 type ShowTodoProps = {
     title: string;
     description: string;
-    onHandleEditing: () => void;
-    isEditing: boolean;
     onHandleEditTodo: (id: string, title: string, description: string) => void;
     onSetTitle: React.Dispatch<React.SetStateAction<string>>;
     onSetDescription: React.Dispatch<React.SetStateAction<string>>;
+    isEditing: boolean;
+    onSetEditing: React.Dispatch<React.SetStateAction<boolean>>;
     id: string;
 };
 
 function ShowTodo({
     title,
     description,
-    onHandleEditing,
-    isEditing,
     onHandleEditTodo,
     onSetTitle,
     onSetDescription,
+    isEditing,
+    onSetEditing,
     id,
 }: ShowTodoProps) {
+    const previousTodo = useRef<string>(title);
+    const previousDescription = useRef<string>(description);
+
+    const isEditingConfirmed = () => {
+        if (!isEditing) {
+            previousTodo.current = title;
+            previousDescription.current = description;
+        }
+        onSetEditing(!isEditing);
+    };
+
+    const saveTodo = () => {
+        previousTodo.current = title;
+        previousDescription.current = description;
+    };
+
     return (
         <div className="main-todo-wrapper">
             <div>
                 {isEditing ? (
-                    <input
-                        type="text"
-                        value={title}
-                        className="edit-title"
-                        onChange={(e) => onSetTitle(e.target.value)}
-                    />
+                    <>
+                        <input
+                            type="text"
+                            value={title}
+                            className="edit-title"
+                            onChange={(e) => onSetTitle(e.target.value)}
+                        />
+                        <textarea
+                            value={description}
+                            onChange={(e) => onSetDescription(e.target.value)}
+                        />
+                    </>
                 ) : (
-                    <p className="title">{title}</p>
+                    <>
+                        <p className="title">{title}</p>
+                        <p className="description">{description}</p>
+                    </>
                 )}
-                <p>{description}</p>
             </div>
             <div className="edit-wrapper">
                 {!isEditing ? (
-                    <button onClick={() => onHandleEditing()}>
+                    <button onClick={() => onSetEditing(true)}>
                         <MdEdit color="black" size={20} />
                     </button>
                 ) : (
@@ -308,12 +328,21 @@ function ShowTodo({
                         <button
                             onClick={() => {
                                 onHandleEditTodo(id, title, description);
-                                onHandleEditing();
+                                saveTodo();
+                                isEditingConfirmed();
                             }}
                         >
-                            Ok
+                            &#10003;
                         </button>
-                        <button>Cancel</button>
+                        <button
+                            onClick={() => {
+                                onSetTitle(previousTodo.current);
+                                onSetDescription(previousDescription.current);
+                                isEditingConfirmed();
+                            }}
+                        >
+                            &#10006;
+                        </button>
                     </div>
                 )}
             </div>
