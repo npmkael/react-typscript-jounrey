@@ -136,6 +136,7 @@ function App() {
                     isEditing={isEditing}
                     onSetEditing={setIsEditing}
                     id={id}
+                    onSetTodoOpen={setIsTodoOpen}
                 />
             ) : (
                 ""
@@ -267,6 +268,7 @@ type ShowTodoProps = {
     isEditing: boolean;
     onSetEditing: React.Dispatch<React.SetStateAction<boolean>>;
     id: string;
+    onSetTodoOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function ShowTodo({
@@ -278,6 +280,7 @@ function ShowTodo({
     isEditing,
     onSetEditing,
     id,
+    onSetTodoOpen,
 }: ShowTodoProps) {
     const previousTodo = useRef<string>(title);
     const previousDescription = useRef<string>(description);
@@ -309,10 +312,16 @@ function ShowTodo({
                         <textarea
                             value={description}
                             onChange={(e) => onSetDescription(e.target.value)}
+                            className="text-area-description"
                         />
                     </>
                 ) : (
                     <>
+                        <div>
+                            <button onClick={() => onSetTodoOpen(false)}>
+                                X
+                            </button>
+                        </div>
                         <p className="title">{title}</p>
                         <p className="description">{description}</p>
                     </>
