@@ -318,7 +318,10 @@ function ShowTodo({
                 ) : (
                     <>
                         <div>
-                            <button onClick={() => onSetTodoOpen(false)}>
+                            <button
+                                onClick={() => onSetTodoOpen(false)}
+                                className="close-button"
+                            >
                                 X
                             </button>
                         </div>
