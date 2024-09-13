@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 
 const initialTodos = [
     {
@@ -70,20 +71,7 @@ function App() {
                 {/* extract these to components */}
                 <div className="navbar">
                     <Button
-                        className={
-                            active === 0 ? "home btn active" : "home btn"
-                        }
-                        onClick={() => {
-                            setIsAcive(0);
-                            setToggleTask(false);
-                        }}
-                    >
-                        Home
-                    </Button>
-                    <Button
-                        className={
-                            active === 1 ? "todo btn active" : "todo btn"
-                        }
+                        className="todo btn"
                         onClick={() => {
                             setIsAcive(1);
                             setToggleTask(false);
@@ -94,35 +82,27 @@ function App() {
                     <span className="todo-counter">{todo.length}</span>
                 </div>
                 <div className="main-container">
-                    {active === 1 ? (
-                        <>
-                            {todo.map((todo) => (
-                                <Todo
-                                    todo={todo}
-                                    key={todo.id}
-                                    onHandleShowTodo={handleShowTodo}
-                                />
-                            ))}
-                            <div className="add-btn-container">
-                                <Button
-                                    className="add-todo-btn"
-                                    onClick={() =>
-                                        setToggleTask((toggle) => !toggle)
-                                    }
-                                >
-                                    <BsPlus color="white" size={30} />
-                                    New Task
-                                </Button>
-                            </div>
-                            <CreateTaskModal
-                                toggleTask={toggleTask}
-                                onHandleTodo={handleAddTodo}
-                                onSetToggle={setToggleTask}
-                            />
-                        </>
-                    ) : (
-                        <p>home</p>
-                    )}
+                    {todo.map((todo) => (
+                        <Todo
+                            todo={todo}
+                            key={todo.id}
+                            onHandleShowTodo={handleShowTodo}
+                        />
+                    ))}
+                    <div className="add-btn-container">
+                        <Button
+                            className="add-todo-btn"
+                            onClick={() => setToggleTask((toggle) => !toggle)}
+                        >
+                            <BsPlus color="white" size={30} />
+                            New Task
+                        </Button>
+                    </div>
+                    <CreateTaskModal
+                        toggleTask={toggleTask}
+                        onHandleTodo={handleAddTodo}
+                        onSetToggle={setToggleTask}
+                    />
                 </div>
             </div>
 
@@ -317,12 +297,22 @@ function ShowTodo({
                     </>
                 ) : (
                     <>
-                        <div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                            }}
+                        >
                             <button
                                 onClick={() => onSetTodoOpen(false)}
                                 className="close-button"
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
                             >
-                                X
+                                <IoClose size={20} />
                             </button>
                         </div>
                         <p className="title">{title}</p>
