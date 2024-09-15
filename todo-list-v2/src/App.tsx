@@ -1,30 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { FaTrashCan } from "react-icons/fa6";
-
-const initialTodos = [
-  {
-    id: "1",
-    title: "play apex",
-    description:
-      "will play with friends later at some point cause I have busy friends...",
-    isDone: false,
-  },
-  {
-    id: "2",
-    title: "coding session",
-    description: "will code later since i'm an asshole...",
-    isDone: false,
-  },
-  {
-    id: "3",
-    title: "watch the frog",
-    description: "go minsi is so hot...",
-    isDone: false,
-  },
-];
 
 type TodoType = {
   title: string;
@@ -34,7 +12,10 @@ type TodoType = {
 };
 
 function App() {
-  const [todo, setTodos] = useState<TodoType[]>(initialTodos);
+  const [todo, setTodos] = useState<TodoType[]>(() => {
+    const storedValue = localStorage.getItem("todo");
+    return storedValue === null ? [] : JSON.parse(storedValue);
+  });
   const [toggleTask, setToggleTask] = useState<boolean>(false);
   const [isTodoOpen, setIsTodoOpen] = useState<boolean>(false);
   const [title, setTitle] = useState("");
@@ -68,6 +49,13 @@ function App() {
   function handleDeleteTodo(id: string) {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
   }
+
+  useEffect(
+    function () {
+      localStorage.setItem("todo", JSON.stringify(todo));
+    },
+    [todo]
+  );
 
   return (
     <>
