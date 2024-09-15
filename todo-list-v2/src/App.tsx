@@ -72,7 +72,6 @@ function App() {
   return (
     <>
       <div className="todo-container">
-        {/* extract these to components */}
         <div className="navbar">
           <Button
             className="todo btn"
@@ -93,20 +92,26 @@ function App() {
               onSetIsTodoOpen={setIsTodoOpen}
             />
           ))}
-          <div className="add-btn-container">
-            <Button
-              className="add-todo-btn"
-              onClick={() => setToggleTask((toggle) => !toggle)}
-            >
-              <BsPlus color="white" size={30} />
-              New Task
-            </Button>
-          </div>
           <CreateTaskModal
             toggleTask={toggleTask}
             onHandleTodo={handleAddTodo}
             onSetToggle={setToggleTask}
           />
+          <div className="add-btn-container">
+            <Button
+              className="add-todo-btn"
+              onClick={() => setToggleTask((toggle) => !toggle)}
+            >
+              <BsPlus
+                color="#212121"
+                size={30}
+                style={{
+                  transform: toggleTask ? "rotate(45deg)" : "rotate(0deg)",
+                  transition: "all 0.3s",
+                }}
+              />
+            </Button>
+          </div>
         </div>
       </div>
 
