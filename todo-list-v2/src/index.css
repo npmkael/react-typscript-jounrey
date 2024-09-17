@@ -16,6 +16,7 @@ body {
   /* justify-content: center; */
   font-family: "Roboto Mono", monospace;
   background-color: #212121;
+  overflow: hidden;
 }
 
 .new-todo {
@@ -378,4 +379,41 @@ body {
   filter: drop-shadow(2px 3px 0 #212121);
   font-weight: 500;
   cursor: pointer;
+}
+
+.popup-container {
+  background-color: #f1f1f1;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  transform: translateY(70px);
+  transition: all 0.4s;
+}
+.checkmark {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  border-radius: 50%;
+}
+.exmark {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.popup-container.pops {
+  transform: translateY(0);
 }

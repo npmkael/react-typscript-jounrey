@@ -3,6 +3,8 @@ import { BsPlus } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { FaTrashCan } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
+import { ImCross } from "react-icons/im";
 
 type TodoType = {
   title: string;
@@ -22,6 +24,10 @@ function App() {
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [notification, setNotification] = useState<boolean>(false);
+  const [typeOfNotif, setTypeOfNotif] = useState<string>("");
+
+  const previousTodoLength = useRef(todo.length);
 
   function handleAddTodo(newTodo: TodoType): void {
     setTodos((todo) => [...todo, newTodo]);
@@ -57,8 +63,44 @@ function App() {
     [todo]
   );
 
+  useEffect(
+    function () {
+      if (todo.length > previousTodoLength.current) {
+        setTypeOfNotif("add");
+        setNotification(true);
+      } else if (todo.length < previousTodoLength.current) {
+        setTypeOfNotif("delete");
+        setNotification(true);
+      }
+
+      previousTodoLength.current = todo.length;
+
+      const timer = setTimeout(() => setNotification(false), 3000);
+      return () => clearTimeout(timer);
+    },
+    [todo]
+  );
+
   return (
     <>
+      {typeOfNotif === "add" ? (
+        <Popup
+          notification={notification}
+          className={"checkmark"}
+          typeOfNotif={typeOfNotif}
+        >
+          Todo is added
+        </Popup>
+      ) : (
+        <Popup
+          notification={notification}
+          className={"exmark"}
+          typeOfNotif={typeOfNotif}
+        >
+          Todo is deleted
+        </Popup>
+      )}
+
       <div className="todo-container">
         <div className="navbar">
           <Button
@@ -414,6 +456,28 @@ function ShowTodo({
         </div>
       </div>
     </>
+  );
+}
+
+type PopupProps = {
+  children: React.ReactNode;
+  notification: boolean;
+  className: string;
+  typeOfNotif: string;
+};
+
+function Popup({ children, notification, className, typeOfNotif }: PopupProps) {
+  return (
+    <div className={notification ? "popup-container pops" : "popup-container"}>
+      <div className={className}>
+        {typeOfNotif === "add" ? (
+          <FaCheck color="white" />
+        ) : (
+          <ImCross color="white" size={10} />
+        )}
+      </div>
+      <span>{children}</span>
+    </div>
   );
 }
 
