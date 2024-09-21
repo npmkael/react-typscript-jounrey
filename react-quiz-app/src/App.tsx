@@ -1,10 +1,14 @@
-import { useState } from "react";
-import DateCounter from "./DateCounter";
+import Header from "./Header";
+import Page from "./Page";
 
 function App() {
   return (
-    <div>
-      <DateCounter />
+    <div className="app">
+      <Header />
+      <Page>
+        <p>1/15</p>
+        <p>Questions?</p>
+      </Page>
     </div>
   );
 }
