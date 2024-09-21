@@ -4,22 +4,14 @@ import Page from "./Page";
 import Loader from "./Loader";
 import ErrorHandler from "./ErrorHandler";
 import StartScreen from "./StartScreen";
-
-type Questions = {
-  question: string;
-  options: string[];
-  correctOption: number;
-  points: number;
-};
+import Question from "./Question";
+import { Questions } from "./models";
+import { QuestionsAction } from "./models";
 
 type QuestionsState = {
   questions: Questions[];
   status: string;
 };
-
-type QuestionsAction =
-  | { type: "dataRecieved"; payload: Questions[] }
-  | { type: "dataFailed" };
 
 const initialState = {
   questions: [],
@@ -40,6 +32,11 @@ function reducer(state: QuestionsState, action: QuestionsAction) {
       return {
         ...state,
         status: "error",
+      };
+    case "startQuiz":
+      return {
+        ...state,
+        status: "active",
       };
     default:
       throw new Error("ddd");
@@ -66,8 +63,9 @@ function App() {
         {state.status === "loading" && <Loader />}
         {state.status === "error" && <ErrorHandler />}
         {state.status === "ready" && (
-          <StartScreen numberOfQuestions={numQuestions} />
+          <StartScreen numberOfQuestions={numQuestions} dispatch={dispatch} />
         )}
+        {state.status === "active" && <Question />}
       </Page>
     </div>
   );
