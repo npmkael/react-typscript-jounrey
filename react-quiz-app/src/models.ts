@@ -11,4 +11,5 @@ export type QuestionsAction =
   | { type: "startQuiz" }
   | { type: "newAnswer"; payload: number }
   | { type: "nextQuestion" }
-  | { type: "quizFinished" };
+  | { type: "quizFinished" }
+  | { type: "restartQuiz" };

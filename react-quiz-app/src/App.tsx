@@ -71,6 +71,20 @@ function reducer(state: QuestionsState, action: QuestionsAction) {
         highscore:
           state.points > state.highscore ? state.points : state.highscore,
       };
+    case "restartQuiz":
+      // return {
+      //   ...initialState,
+      //   questions: state.questions,
+      //   status: "ready",
+      // };
+      return {
+        ...state,
+        questions: state.questions,
+        status: "ready",
+        index: 0,
+        answer: null,
+        points: 0,
+      };
     default:
       throw new Error("ddd");
   }
@@ -129,6 +143,7 @@ function App() {
             points={state.points}
             maxPossiblePoints={maxPossiblePoints}
             highscore={state.highscore}
+            dispatch={dispatch}
           />
         )}
       </Page>

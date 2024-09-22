@@ -1,12 +1,19 @@
 import React from "react";
+import { QuestionsAction } from "../models";
 
 type Props = {
   points: number;
   maxPossiblePoints: number;
   highscore: number;
+  dispatch: React.Dispatch<QuestionsAction>;
 };
 
-const FinishScreen = ({ points, maxPossiblePoints, highscore }: Props) => {
+const FinishScreen = ({
+  points,
+  maxPossiblePoints,
+  highscore,
+  dispatch,
+}: Props) => {
   const percentage = (points / maxPossiblePoints) * 100;
   return (
     <>
@@ -15,6 +22,12 @@ const FinishScreen = ({ points, maxPossiblePoints, highscore }: Props) => {
         {Math.ceil(percentage)}%)
       </p>
       <p className="highscore">(Highscore: {highscore})</p>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "restartQuiz" })}
+      >
+        Restart Quiz
+      </button>
     </>
   );
 };
