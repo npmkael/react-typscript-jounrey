@@ -1,5 +1,5 @@
 import React from "react";
-import { QuestionsAction } from "./models";
+import { QuestionsAction } from "../models";
 
 type Props = {
   numberOfQuestions: number;

@@ -1,23 +1,24 @@
 import { useEffect, useReducer } from "react";
-import Header from "./Header";
-import Page from "./Page";
-import Loader from "./Loader";
-import ErrorHandler from "./ErrorHandler";
-import StartScreen from "./StartScreen";
-import Question from "./Question";
+import Header from "./components/Header";
+import Page from "./components/Page";
+import Loader from "./components/Loader";
+import ErrorHandler from "./components/ErrorHandler";
+import StartScreen from "./components/StartScreen";
+import Question from "./components/Question";
 import { Questions } from "./models";
 import { QuestionsAction } from "./models";
 
 type QuestionsState = {
   questions: Questions[];
   status: string;
+  index: number;
 };
 
 const initialState = {
   questions: [],
-
   // 'loading', 'error', 'ready', 'active', 'finished
   status: "loading",
+  index: 0,
 };
 
 function reducer(state: QuestionsState, action: QuestionsAction) {
@@ -65,7 +66,9 @@ function App() {
         {state.status === "ready" && (
           <StartScreen numberOfQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {state.status === "active" && <Question />}
+        {state.status === "active" && (
+          <Question question={state.questions[state.index]} />
+        )}
       </Page>
     </div>
   );
