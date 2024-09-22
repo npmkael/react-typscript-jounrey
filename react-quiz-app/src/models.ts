@@ -8,4 +8,5 @@ export type Questions = {
 export type QuestionsAction =
   | { type: "dataRecieved"; payload: Questions[] }
   | { type: "dataFailed" }
-  | { type: "startQuiz" };
+  | { type: "startQuiz" }
+  | { type: "newAnswer"; payload: number };

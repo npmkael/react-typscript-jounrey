@@ -12,6 +12,8 @@ type QuestionsState = {
   questions: Questions[];
   status: string;
   index: number;
+  answer: number | null;
+  points: number;
 };
 
 const initialState = {
@@ -19,6 +21,8 @@ const initialState = {
   // 'loading', 'error', 'ready', 'active', 'finished
   status: "loading",
   index: 0,
+  answer: null,
+  points: 0,
 };
 
 function reducer(state: QuestionsState, action: QuestionsAction) {
@@ -38,6 +42,17 @@ function reducer(state: QuestionsState, action: QuestionsAction) {
       return {
         ...state,
         status: "active",
+      };
+    case "newAnswer":
+      const currentQuestion = state.questions.at(state.index);
+      console.log(currentQuestion);
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === currentQuestion?.correctOption
+            ? state.points + currentQuestion.points
+            : state.points,
       };
     default:
       throw new Error("ddd");
@@ -67,7 +82,11 @@ function App() {
           <StartScreen numberOfQuestions={numQuestions} dispatch={dispatch} />
         )}
         {state.status === "active" && (
-          <Question question={state.questions[state.index]} />
+          <Question
+            question={state.questions[state.index]}
+            dispatch={dispatch}
+            answer={state.answer}
+          />
         )}
       </Page>
     </div>

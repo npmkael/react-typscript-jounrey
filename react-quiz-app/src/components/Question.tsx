@@ -1,17 +1,20 @@
 import React from "react";
 import { Questions } from "../models";
+import { QuestionsAction } from "../models";
 import Options from "./Options";
 
 type Props = {
   question: Questions;
+  dispatch: React.Dispatch<QuestionsAction>;
+  answer: number | null;
 };
 
-const Question = ({ question }: Props) => {
+const Question = ({ question, dispatch, answer }: Props) => {
   console.log(question);
   return (
     <div>
       <h4>{question.question}</h4>
-      <Options options={question.options} />
+      <Options question={question} dispatch={dispatch} answer={answer} />
     </div>
   );
 };
