@@ -7,6 +7,7 @@ import StartScreen from "./components/StartScreen";
 import Question from "./components/Question";
 import { Questions } from "./models";
 import { QuestionsAction } from "./models";
+import NextButton from "./components/NextButton";
 
 type QuestionsState = {
   questions: Questions[];
@@ -45,7 +46,6 @@ function reducer(state: QuestionsState, action: QuestionsAction) {
       };
     case "newAnswer":
       const currentQuestion = state.questions.at(state.index);
-      console.log(currentQuestion);
       return {
         ...state,
         answer: action.payload,
@@ -53,6 +53,12 @@ function reducer(state: QuestionsState, action: QuestionsAction) {
           action.payload === currentQuestion?.correctOption
             ? state.points + currentQuestion.points
             : state.points,
+      };
+    case "nextQuestion":
+      return {
+        ...state,
+        index: state.index + 1,
+        answer: null,
       };
     default:
       throw new Error("ddd");
@@ -82,11 +88,14 @@ function App() {
           <StartScreen numberOfQuestions={numQuestions} dispatch={dispatch} />
         )}
         {state.status === "active" && (
-          <Question
-            question={state.questions[state.index]}
-            dispatch={dispatch}
-            answer={state.answer}
-          />
+          <>
+            <Question
+              question={state.questions[state.index]}
+              dispatch={dispatch}
+              answer={state.answer}
+            />
+            <NextButton dispatch={dispatch} answer={state.answer} />
+          </>
         )}
       </Page>
     </div>
