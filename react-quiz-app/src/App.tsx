@@ -9,6 +9,7 @@ import { Questions } from "./models";
 import { QuestionsAction } from "./models";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
+import FinishScreen from "./components/FinishScreen";
 
 type QuestionsState = {
   questions: Questions[];
@@ -16,6 +17,7 @@ type QuestionsState = {
   index: number;
   answer: number | null;
   points: number;
+  highscore: number;
 };
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  highscore: 0,
 };
 
 function reducer(state: QuestionsState, action: QuestionsAction) {
@@ -60,6 +63,13 @@ function reducer(state: QuestionsState, action: QuestionsAction) {
         ...state,
         index: state.index + 1,
         answer: null,
+      };
+    case "quizFinished":
+      return {
+        ...state,
+        status: "finished",
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
       };
     default:
       throw new Error("ddd");
@@ -106,8 +116,20 @@ function App() {
               dispatch={dispatch}
               answer={state.answer}
             />
-            <NextButton dispatch={dispatch} answer={state.answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={state.answer}
+              index={state.index}
+              numQuestions={numQuestions}
+            />
           </>
+        )}
+        {state.status === "finished" && (
+          <FinishScreen
+            points={state.points}
+            maxPossiblePoints={maxPossiblePoints}
+            highscore={state.highscore}
+          />
         )}
       </Page>
     </div>

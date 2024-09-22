@@ -10,4 +10,5 @@ export type QuestionsAction =
   | { type: "dataFailed" }
   | { type: "startQuiz" }
   | { type: "newAnswer"; payload: number }
-  | { type: "nextQuestion" };
+  | { type: "nextQuestion" }
+  | { type: "quizFinished" };
