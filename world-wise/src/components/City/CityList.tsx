@@ -1,4 +1,4 @@
-import { City } from "../../types";
+import { CityType } from "../../types";
 import Message from "../Message/Message";
 import Spinner from "../Spinner/Spinner";
 import CityItem from "./CityItem";
@@ -8,7 +8,7 @@ const CityList = ({
   cities,
   isLoading,
 }: {
-  cities: City[];
+  cities: CityType[];
   isLoading: boolean;
 }) => {
   if (isLoading) {

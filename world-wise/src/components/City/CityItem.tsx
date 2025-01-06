@@ -1,4 +1,5 @@
-import { City } from "../../types";
+import { Link } from "react-router-dom";
+import { CityType } from "../../types";
 import styles from "./CityItem.module.css";
 
 const formatDate = (date: string) =>
@@ -9,15 +10,17 @@ const formatDate = (date: string) =>
     weekday: "long",
   }).format(new Date(date));
 
-const CityItem = ({ city, key }: { city: City; key: string }) => {
-  const { cityName, country, emoji, date, notes } = city;
+const CityItem = ({ city, key }: { city: CityType; key: string }) => {
+  const { cityName, country, emoji, date, notes, id } = city;
 
   return (
-    <li className={styles.cityItem}>
-      <span className={styles.emoji}>{emoji}</span>
-      <h3 className={styles.name}>{cityName}</h3>
-      <time className={styles.date}>{formatDate(date)}</time>
-      <button className={styles.deleteBtn}>&times;</button>
+    <li>
+      <Link className={styles.cityItem} to={`${id}`}>
+        <span className={styles.emoji}>{emoji}</span>
+        <h3 className={styles.name}>{cityName}</h3>
+        <time className={styles.date}>{formatDate(date)}</time>
+        <button className={styles.deleteBtn}>&times;</button>
+      </Link>
     </li>
   );
 };
