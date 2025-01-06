@@ -1,4 +1,4 @@
-import { City } from "../../types";
+import { CityType } from "../../types";
 import Message from "../Message/Message";
 import Spinner from "../Spinner/Spinner";
 import CountryItem from "./CountryItem";
@@ -8,7 +8,7 @@ const CountryList = ({
   cities,
   isLoading,
 }: {
-  cities: City[];
+  cities: CityType[];
   isLoading: boolean;
 }) => {
   if (isLoading) {
@@ -26,14 +26,14 @@ const CountryList = ({
   // iterates over each `city` object in the `cities` array.
 
   const countries = cities.reduce<
-    { country: string; emoji: string; id: string }[] // Type for the reduced result: array of objects with country, emoji, and id properties.
+    { country: string; emoji: string }[] // Type for the reduced result: array of objects with country, emoji, and id properties.
   >((arr, city) => {
     // For each `city`, check if its `country` already exists in the `arr`.
     if (!arr.map((el) => el.country).includes(city.country)) {
       // If the `country` does not already exist in `arr`, add a new object to the array.
       return [
         ...arr, // Spread the existing objects in `arr`.
-        { country: city.country, emoji: city.emoji, id: city.id },
+        { country: city.country, emoji: city.emoji },
       ];
     } else {
       // If the `country` already exists in `arr`, return the array as-is.
@@ -44,7 +44,7 @@ const CountryList = ({
   return (
     <ul className={styles.countryList}>
       {countries.map((country) => (
-        <CountryItem country={country} key={country.id} />
+        <CountryItem country={country} key={country.country} />
       ))}
     </ul>
   );
