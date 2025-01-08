@@ -1,11 +1,15 @@
-import React from "react";
+import { useContext } from "react";
+import { PostContext } from "../../App";
 
-type SearchPostsProps = {
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-};
+const SearchPosts = () => {
+  const context = useContext(PostContext);
 
-const SearchPosts = ({ searchQuery, setSearchQuery }: SearchPostsProps) => {
+  if (context === undefined) {
+    throw new Error("bullshet, no context");
+  }
+
+  const { searchQuery, setSearchQuery } = context;
+
   return (
     <input
       value={searchQuery}

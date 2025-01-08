@@ -1,17 +1,11 @@
-import { Post } from "../../types";
 import FormAddPost from "./FormAddPost";
 import Posts from "./Posts";
 
-type PostSectionProps = {
-  posts: Post[];
-  onAddPost: (post: Post) => void;
-};
-
-const PostSection = ({ posts, onAddPost }: PostSectionProps) => {
+const PostSection = () => {
   return (
     <main>
-      <FormAddPost onAddPost={onAddPost} />
-      <Posts posts={posts} />
+      <FormAddPost />
+      <Posts />
     </main>
   );
 };

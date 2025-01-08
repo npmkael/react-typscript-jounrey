@@ -1,11 +1,15 @@
-import React from "react";
-import { Post } from "../../types";
+import { useContext } from "react";
+import { PostContext } from "../../App";
 
-type ResultsProps = {
-  posts: Post[];
-};
+const Results = () => {
+  const context = useContext(PostContext);
 
-const Results = ({ posts }: ResultsProps) => {
+  if (context === undefined) {
+    throw new Error("bullshet, no context");
+  }
+
+  const { posts } = context;
+
   return <p>🚀 {posts.length} atomic posts found</p>;
 };
 

@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { Post } from "../../types";
+import { useContext, useState } from "react";
+import { PostContext } from "../../App";
 
-type ArchiveProps = {
-  onAddPost: (post: Post) => void;
-  createRandomPost: () => Post;
-};
+const Archive = () => {
+  const context = useContext(PostContext);
 
-const Archive = ({ onAddPost, createRandomPost }: ArchiveProps) => {
+  if (context === undefined) {
+    throw new Error("bullshet, no context");
+  }
+
+  const { onAddPost, createRandomPost } = context;
+
   const [posts] = useState(() =>
     Array.from({ length: 16 }, () => createRandomPost())
   );

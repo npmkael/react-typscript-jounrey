@@ -20,9 +20,12 @@ interface PostContextType {
   onClearPosts: () => void;
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  createRandomPost: () => Post;
 }
 
-const PostContext = createContext<PostContextType | undefined>(undefined);
+export const PostContext = createContext<PostContextType | undefined>(
+  undefined
+);
 
 const App = () => {
   const [posts, setPosts] = useState(() =>
@@ -62,6 +65,7 @@ const App = () => {
         onClearPosts: handleClearPosts,
         searchQuery,
         setSearchQuery,
+        createRandomPost,
       }}
     >
       <section>
@@ -73,17 +77,9 @@ const App = () => {
         </button>
 
         {/* Header Component */}
-        <Header
-          posts={searchedPosts}
-          onClearPosts={handleClearPosts}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <PostSection posts={searchedPosts} onAddPost={handleAddPost} />
-        <Archive
-          onAddPost={handleAddPost}
-          createRandomPost={createRandomPost}
-        />
+        <Header />
+        <PostSection />
+        <Archive />
         <Footer />
       </section>
     </PostContext.Provider>

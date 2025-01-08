@@ -1,11 +1,15 @@
-import { useState } from "react";
-import { Post } from "../../types";
+import { useContext, useState } from "react";
+import { PostContext } from "../../App";
 
-type FormAddPostProps = {
-  onAddPost: (post: Post) => void;
-};
+const FormAddPost = () => {
+  const context = useContext(PostContext);
 
-const FormAddPost = ({ onAddPost }: FormAddPostProps) => {
+  if (context === undefined) {
+    throw new Error("bullshet, no context");
+  }
+
+  const { onAddPost } = context;
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 

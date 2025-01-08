@@ -1,23 +1,19 @@
-import React from "react";
-import { Post } from "../../types";
+import { useContext } from "react";
 
 import styles from "./Header.module.css";
 import Results from "../Results/Results";
 import SearchPosts from "../SearchPosts/SearchPosts";
+import { PostContext } from "../../App";
 
-type HeaderProps = {
-  posts: Post[];
-  onClearPosts: () => void;
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-};
+const Header = () => {
+  const context = useContext(PostContext);
 
-const Header = ({
-  posts,
-  onClearPosts,
-  searchQuery,
-  setSearchQuery,
-}: HeaderProps) => {
+  if (context === undefined) {
+    throw new Error("bullshet, no context");
+  }
+  // 3). Use the context value in the Header component.
+  const { onClearPosts } = context;
+
   return (
     <header className={styles.container}>
       <h1>
@@ -25,11 +21,8 @@ const Header = ({
       </h1>
       <p>TypeScript (TSX) Edition</p>
       <div>
-        <Results posts={posts} />
-        <SearchPosts
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Results />
+        <SearchPosts />
         <button onClick={onClearPosts}>Clear posts</button>
       </div>
     </header>

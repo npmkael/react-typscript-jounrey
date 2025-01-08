@@ -1,18 +1,23 @@
-import { Post } from "../../types";
+import { useContext } from "react";
+import { PostContext } from "../../App";
 
-type PostsProps = {
-  posts: Post[];
-};
-
-const Posts = ({ posts }: PostsProps) => {
+const Posts = () => {
   return (
     <section>
-      <List posts={posts} />
+      <List />
     </section>
   );
 };
 
-const List = ({ posts }: PostsProps) => {
+const List = () => {
+  const context = useContext(PostContext);
+
+  if (context === undefined) {
+    throw new Error("bullshet, no context");
+  }
+
+  const { posts } = context;
+
   return (
     <ul>
       {posts.map((post, i) => (
