@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.container button {
+  font-size: 14px;
+}
