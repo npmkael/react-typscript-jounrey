@@ -1,12 +1,8 @@
-import { useContext, useState } from "react";
-import { PostContext } from "../../App";
+import { useState } from "react";
+import { usePosts } from "../../context/PostProvider";
 
 const Archive = () => {
-  const context = useContext(PostContext);
-
-  if (context === undefined) {
-    throw new Error("bullshet, no context");
-  }
+  const context = usePosts();
 
   const { onAddPost, createRandomPost } = context;
 

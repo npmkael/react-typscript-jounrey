@@ -1,12 +1,8 @@
 import { useContext } from "react";
-import { PostContext } from "../../App";
+import { usePosts } from "../../context/PostProvider";
 
 const SearchPosts = () => {
-  const context = useContext(PostContext);
-
-  if (context === undefined) {
-    throw new Error("bullshet, no context");
-  }
+  const context = usePosts();
 
   const { searchQuery, setSearchQuery } = context;
 
