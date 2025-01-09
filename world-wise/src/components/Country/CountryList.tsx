@@ -1,16 +1,12 @@
-import { CityType } from "../../types";
+import { useCities } from "../../context/CitiesProvider";
 import Message from "../Message/Message";
 import Spinner from "../Spinner/Spinner";
 import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
 
-const CountryList = ({
-  cities,
-  isLoading,
-}: {
-  cities: CityType[];
-  isLoading: boolean;
-}) => {
+const CountryList = () => {
+  const { cities, isLoading } = useCities();
+
   if (isLoading) {
     return <Spinner />;
   }

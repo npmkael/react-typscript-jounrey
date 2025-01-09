@@ -10,7 +10,7 @@ const formatDate = (date: string) =>
     weekday: "long",
   }).format(new Date(date));
 
-const CityItem = ({ city, key }: { city: CityType; key: string }) => {
+const CityItem = ({ city }: { city: CityType }) => {
   const { cityName, country, emoji, date, notes, id, position } = city;
 
   return (

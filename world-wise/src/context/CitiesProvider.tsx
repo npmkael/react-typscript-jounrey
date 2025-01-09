@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { CityType } from "../types";
 
 type CitiesContextType = {
@@ -38,4 +38,14 @@ const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export { CitiesProvider, CitiesContext };
+const useCities = () => {
+  const context = useContext(CitiesContext);
+
+  if (context === undefined) {
+    throw new Error("useCities must be used within a CitiesProvider");
+  }
+
+  return context;
+};
+
+export { CitiesProvider, useCities };
