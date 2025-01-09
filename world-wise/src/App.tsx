@@ -12,7 +12,7 @@ import City from "./components/City/City";
 
 import Form from "./components/Form/Form";
 
-import { CitiesProvider } from "./context/CitiesProvider";
+import { CitiesProvider } from "./contexts/CitiesProvider";
 
 const App = () => {
   return (
