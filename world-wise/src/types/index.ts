@@ -10,3 +10,8 @@ export type CityType = {
   };
   id: string;
 };
+
+export type Position = {
+  lat: number;
+  lng: number;
+};
