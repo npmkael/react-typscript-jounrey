@@ -6,6 +6,7 @@ type CitiesContextType = {
   isLoading: boolean;
   currentCity: CityType | null;
   getCity: (id: string) => void;
+  createCity: (newCity: CityType) => void;
 };
 
 const CitiesContext = createContext<CitiesContextType | undefined>(undefined);
@@ -47,8 +48,30 @@ const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  async function createCity(newCity: CityType) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities/`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+
+      setCities((cities) => [...cities, data]);
+    } catch {
+      alert("Failed to fetch data");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
-    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity }}>
+    <CitiesContext.Provider
+      value={{ cities, isLoading, currentCity, getCity, createCity }}
+    >
       {children}
     </CitiesContext.Provider>
   );

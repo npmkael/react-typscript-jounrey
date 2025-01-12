@@ -10,9 +10,8 @@
         "lat": 38.727881642324164,
         "lng": -9.140900099907554
       },
-      "id": 73930385
+      "id": "73930385"
     },
-
     {
       "cityName": "Madrid",
       "country": "Spain",
@@ -23,7 +22,7 @@
         "lat": 40.46635901755316,
         "lng": -3.7133789062500004
       },
-      "id": 17806751
+      "id": "17806751"
     },
     {
       "cityName": "Berlin",
@@ -35,7 +34,79 @@
         "lat": 52.53586782505711,
         "lng": 13.376933665713324
       },
-      "id": 98443197
+      "id": "98443197"
+    },
+    {
+      "id": "0bb1",
+      "cityName": "Manila",
+      "country": "Philippines (the)",
+      "emoji": "🇵🇭",
+      "date": "2025-01-12T23:08:01.530Z",
+      "notes": "",
+      "position": {
+        "lat": 14.551684056143447,
+        "lng": 121.04736328125001
+      }
+    },
+    {
+      "id": "1d87",
+      "cityName": "Matuguinao",
+      "country": "Philippines (the)",
+      "emoji": "🇵🇭",
+      "date": "2025-01-12T23:12:29.126Z",
+      "notes": "",
+      "position": {
+        "lat": 12.12526421833159,
+        "lng": 125.00244140625001
+      }
+    },
+    {
+      "id": "273b",
+      "cityName": "Iwakuni",
+      "country": "Japan",
+      "emoji": "🇯🇵",
+      "date": "2025-01-12T23:15:15.965Z",
+      "notes": "",
+      "position": {
+        "lat": 34.261756524459805,
+        "lng": 131.95678710937503
+      }
+    },
+    {
+      "id": "d2a2",
+      "cityName": "Otaki",
+      "country": "Japan",
+      "emoji": "🇯🇵",
+      "date": "2025-01-12T23:15:15.965Z",
+      "notes": "",
+      "position": {
+        "lat": 35.77325759103725,
+        "lng": 137.46093750000003
+      }
+    },
+    {
+      "id": "805f",
+      "cityName": "Daegu",
+      "country": "Korea (the Republic of)",
+      "emoji": "🇰🇷",
+      "date": "2025-01-12T23:17:34.879Z",
+      "notes": "",
+      "position": {
+        "lat": 35.639441068973944,
+        "lng": 128.49609375000003
+      }
+    },
+    {
+      "id": "579b",
+      "cityName": "Kiryu",
+      "country": "Japan",
+      "emoji": "🇯🇵",
+      "date": "2025-01-12T23:18:20.315Z",
+      "notes": "kiryu!",
+      "position": {
+        "lat": 36.527294814546245,
+        "lng": 139.25170898437503
+      }
     }
   ]
 }
