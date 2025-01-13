@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useReducer } from "react";
 
+type FakeAuthType = {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+};
+
 type AuthContextType = {
   user: FakeAuthType | null;
   isAuthenticated: boolean;
@@ -8,13 +15,6 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
-
-type FakeAuthType = {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-};
 
 type AuthStateType = {
   user: FakeAuthType | null;
@@ -88,7 +88,9 @@ function useAuth() {
   const context = useContext(AuthContext);
 
   if (context === undefined)
-    return new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useAuth must be used within an AuthProvider");
+
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
 
   return context;
 }
