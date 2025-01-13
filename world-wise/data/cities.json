@@ -25,18 +25,6 @@
       "id": "17806751"
     },
     {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": "98443197"
-    },
-    {
       "id": "0bb1",
       "cityName": "Manila",
       "country": "Philippines (the)",
@@ -49,27 +37,15 @@
       }
     },
     {
-      "id": "1d87",
-      "cityName": "Matuguinao",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2025-01-12T23:12:29.126Z",
-      "notes": "",
+      "id": "167f",
+      "cityName": "Helsinki",
+      "country": "Finland",
+      "emoji": "🇫🇮",
+      "date": "2025-01-13T01:38:35.765Z",
+      "notes": "finding jersey",
       "position": {
-        "lat": 12.12526421833159,
-        "lng": 125.00244140625001
-      }
-    },
-    {
-      "id": "d2a2",
-      "cityName": "Otaki",
-      "country": "Japan",
-      "emoji": "🇯🇵",
-      "date": "2025-01-12T23:15:15.965Z",
-      "notes": "",
-      "position": {
-        "lat": 35.77325759103725,
-        "lng": 137.46093750000003
+        "lat": 60.16200952512136,
+        "lng": 24.9664306640625
       }
     }
   ]
