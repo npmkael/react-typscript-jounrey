@@ -61,18 +61,6 @@
       }
     },
     {
-      "id": "273b",
-      "cityName": "Iwakuni",
-      "country": "Japan",
-      "emoji": "🇯🇵",
-      "date": "2025-01-12T23:15:15.965Z",
-      "notes": "",
-      "position": {
-        "lat": 34.261756524459805,
-        "lng": 131.95678710937503
-      }
-    },
-    {
       "id": "d2a2",
       "cityName": "Otaki",
       "country": "Japan",
@@ -82,30 +70,6 @@
       "position": {
         "lat": 35.77325759103725,
         "lng": 137.46093750000003
-      }
-    },
-    {
-      "id": "805f",
-      "cityName": "Daegu",
-      "country": "Korea (the Republic of)",
-      "emoji": "🇰🇷",
-      "date": "2025-01-12T23:17:34.879Z",
-      "notes": "",
-      "position": {
-        "lat": 35.639441068973944,
-        "lng": 128.49609375000003
-      }
-    },
-    {
-      "id": "579b",
-      "cityName": "Kiryu",
-      "country": "Japan",
-      "emoji": "🇯🇵",
-      "date": "2025-01-12T23:18:20.315Z",
-      "notes": "kiryu!",
-      "position": {
-        "lat": 36.527294814546245,
-        "lng": 139.25170898437503
       }
     }
   ]
