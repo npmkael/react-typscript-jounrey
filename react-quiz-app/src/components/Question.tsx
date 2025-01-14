@@ -1,20 +1,14 @@
-import React from "react";
-import { Questions } from "../models";
-import { QuestionsAction } from "../models";
+import { useQuiz } from "../contexts/QuizContext";
 import Options from "./Options";
 
-type Props = {
-  question: Questions;
-  dispatch: React.Dispatch<QuestionsAction>;
-  answer: number | null;
-};
+const Question = () => {
+  const { questions, index } = useQuiz();
 
-const Question = ({ question, dispatch, answer }: Props) => {
-  console.log(question);
+  const question = questions[index];
   return (
     <div>
       <h4>{question.question}</h4>
-      <Options question={question} dispatch={dispatch} answer={answer} />
+      <Options question={question} />
     </div>
   );
 };

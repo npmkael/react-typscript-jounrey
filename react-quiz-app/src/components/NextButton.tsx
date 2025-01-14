@@ -1,14 +1,8 @@
-import React from "react";
-import { QuestionsAction } from "../models";
+import { useQuiz } from "../contexts/QuizContext";
 
-type Props = {
-  dispatch: React.Dispatch<QuestionsAction>;
-  answer: number | null;
-  index: number;
-  numQuestions: number;
-};
+const NextButton = () => {
+  const { index, answer, numQuestions, dispatch } = useQuiz();
 
-const NextButton = ({ dispatch, answer, index, numQuestions }: Props) => {
   if (answer === null) return null;
 
   if (index < numQuestions - 1)

@@ -1,19 +1,8 @@
-import React from "react";
-import { QuestionsAction } from "../models";
+import { useQuiz } from "../contexts/QuizContext";
 
-type Props = {
-  points: number;
-  maxPossiblePoints: number;
-  highscore: number;
-  dispatch: React.Dispatch<QuestionsAction>;
-};
+const FinishScreen = () => {
+  const { points, highscore, maxPossiblePoints, dispatch } = useQuiz();
 
-const FinishScreen = ({
-  points,
-  maxPossiblePoints,
-  highscore,
-  dispatch,
-}: Props) => {
   const percentage = (points / maxPossiblePoints) * 100;
   return (
     <>

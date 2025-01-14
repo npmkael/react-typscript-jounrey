@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
-import { QuestionsAction } from "../models";
+import { useQuiz } from "../contexts/QuizContext";
 
-type Props = {
-  dispatch: React.Dispatch<QuestionsAction>;
-  secondsRemaining: number | null;
-};
-
-const Timer = ({ dispatch, secondsRemaining }: Props) => {
+const Timer = () => {
+  const { secondsRemaining, dispatch } = useQuiz();
   // handling possible null (secondsRemaining)
   const mins = Math.floor((secondsRemaining ?? 0) / 60);
   const seconds = (secondsRemaining ?? 0) % 60;

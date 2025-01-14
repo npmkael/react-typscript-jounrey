@@ -1,14 +1,13 @@
-import React from "react";
-import { Questions } from "../models";
-import { QuestionsAction } from "../models";
+import { Questions } from "../types";
+import { useQuiz } from "../contexts/QuizContext";
 
 type Props = {
   question: Questions;
-  dispatch: React.Dispatch<QuestionsAction>;
-  answer: number | null;
 };
 
-const Options = ({ question, dispatch, answer }: Props) => {
+const Options = ({ question }: Props) => {
+  const { answer, dispatch } = useQuiz();
+
   const hasAnswered = answer !== null;
   return (
     <div className="options">

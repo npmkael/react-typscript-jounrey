@@ -14,3 +14,13 @@ export type QuestionsAction =
   | { type: "quizFinished" }
   | { type: "restartQuiz" }
   | { type: "tick" };
+
+export type QuestionsState = {
+  questions: Questions[];
+  status: string;
+  index: number;
+  answer: number | null;
+  points: number;
+  highscore: number;
+  secondsRemaining: number | null;
+};
